@@ -109,26 +109,28 @@ export default function Main() {
     return (
         <ThemeProvider theme={theme}>
             <CssBaseline />
-            <AppBar position="fixed" color="inherit" sx={{ backgroundImage: "url(https://thumbs.dreamstime.com/z/row-fancy-decorative-fruity-cocktails-isolated-white-background-260513900.jpg)", "background-position": "center" }}>
-                <Toolbar>
-                    <Typography
-                        variant="h4"
-                        noWrap
-                        fontFamily="fantasy"
-                        component="div"
-                        color={purple[100]}
-                        sx={{ flexGrow: 1, display: { xs: 'none', sm: 'block' } }}
-                    >
-                        <Trans i18nKey="title" />
-                    </Typography>
-                    {Object.keys(lngs).map((lng) => (
-                        <button key={lng} style={{ fontWeight: i18n.resolvedLanguage === lng ? 'bold' : 'normal' }} type="submit" onClick={() => i18n.changeLanguage(lng)}>
-                            {lngs[lng].nativeName}
-                        </button>
-                    ))}
-                    <ColorButton sx={{ marginLeft: '1%' }} variant="contained" onClick={() => { setIsApply(true) }}><Trans i18nKey="apply" /></ColorButton>
-                </Toolbar>
-            </AppBar>
+            <Fade in={true}>
+                <AppBar position="fixed" color="inherit" sx={{ backgroundImage: "url(https://thumbs.dreamstime.com/z/row-fancy-decorative-fruity-cocktails-isolated-white-background-260513900.jpg)", "background-position": "center" }}>
+                    <Toolbar>
+                        <Typography
+                            variant="h4"
+                            noWrap
+                            fontFamily="fantasy"
+                            component="div"
+                            color={purple[100]}
+                            sx={{ flexGrow: 1, display: { xs: 'none', sm: 'block' } }}
+                        >
+                            <Trans i18nKey="title" />
+                        </Typography>
+                        {Object.keys(lngs).map((lng) => (
+                            <button key={lng} style={{ fontWeight: i18n.resolvedLanguage === lng ? 'bold' : 'normal' }} type="submit" onClick={() => i18n.changeLanguage(lng)}>
+                                {lngs[lng].nativeName}
+                            </button>
+                        ))}
+                        <ColorButton sx={{ marginLeft: '1%' }} variant="contained" onClick={() => { setIsApply(true) }}><Trans i18nKey="apply" /></ColorButton>
+                    </Toolbar>
+                </AppBar>
+            </Fade>
             <br />
             <main>
                 <Modal
@@ -146,145 +148,149 @@ export default function Main() {
                 </Modal>
                 <Container sx={{ py: 7, backgroundImage: "url(https://thumbs.dreamstime.com/z/background-paper-tubes-frame-banner-cocktail-tubes-party-banner-cocktails-bar-elegant-paper-drinking-straws-background-198480888.jpg)" }} fixed >
                     <br />
-                    <form>
-                        <Card>
-                            <CardContent sx={{ flexGrow: 1 }}>
-                                <Grid container spacing={1.2} sx={{ height: '100%', display: 'flex', flexDirection: 'row', justifyContent: "space-between", flexWrap: "wrap" }}>
-                                    <Grid item key={86789} xs={12} sm={6} md={4} lg={3} xl={2}>
-                                        <FormControl fullWidth>
-                                            <InputLabel id="category-label1"><Trans i18nKey="category" /></InputLabel>
-                                            <Select
-                                                labelId="category-label1"
-                                                id="category"
-                                                name="category"
-                                                value={formik.values.category}
-                                                label="Category"
-                                                onChange={formik.handleChange}
-                                            >
-                                                {categories.map((category) => <MenuItem value={category.strCategory}>
-                                                    {category.strCategory}
-                                                </MenuItem>)}
-                                            </Select>
-                                        </FormControl>
+                    <Fade in={true}>
+                        <form>
+                            <Card>
+                                <CardContent sx={{ flexGrow: 1 }}>
+                                    <Grid container spacing={1.2} sx={{ height: '100%', display: 'flex', flexDirection: 'row', justifyContent: "space-between", flexWrap: "wrap" }}>
+                                        <Grid item key={86789} xs={12} sm={6} md={4} lg={3} xl={2}>
+                                            <FormControl fullWidth>
+                                                <InputLabel id="category-label1"><Trans i18nKey="category" /></InputLabel>
+                                                <Select
+                                                    labelId="category-label1"
+                                                    id="category"
+                                                    name="category"
+                                                    value={formik.values.category}
+                                                    label="Category"
+                                                    onChange={formik.handleChange}
+                                                >
+                                                    {categories.map((category) => <MenuItem value={category.strCategory}>
+                                                        {category.strCategory}
+                                                    </MenuItem>)}
+                                                </Select>
+                                            </FormControl>
+                                        </Grid>
+                                        <Grid item key={21456} xs={12} sm={6} md={4} lg={3} xl={2}>
+                                            <FormControl fullWidth>
+                                                <InputLabel id="type-label"><Trans i18nKey="type" /></InputLabel>
+                                                <Select
+                                                    labelId="type-label"
+                                                    id="type"
+                                                    name="type"
+                                                    value={formik.values.type}
+                                                    label="type"
+                                                    onChange={formik.handleChange}
+                                                >
+                                                    {types.map((type) => <MenuItem value={type.strAlcoholic}>
+                                                        {type.strAlcoholic}
+                                                    </MenuItem>)}
+                                                </Select>
+                                            </FormControl>
+                                        </Grid>
+                                        <Grid item key={23423} xs={12} sm={6} md={4} lg={3} xl={2}>
+                                            <FormControl fullWidth>
+                                                <InputLabel id="glass-label"><Trans i18nKey="glass" /></InputLabel>
+                                                <Select
+                                                    labelId="glass-label"
+                                                    id="glass"
+                                                    name="glass"
+                                                    value={formik.values.glass}
+                                                    label="glass"
+                                                    onChange={formik.handleChange}
+                                                >
+                                                    {glasses.map((glass) => <MenuItem value={glass.strGlass}>
+                                                        {glass.strGlass}
+                                                    </MenuItem>)}
+                                                </Select>
+                                            </FormControl>
+                                        </Grid>
+                                        <Grid item key={768768} xs={12} sm={6} md={4} lg={3} xl={2}>
+                                            <FormControl fullWidth>
+                                                <InputLabel id="ingredients-label"><Trans i18nKey="ingredients" /></InputLabel>
+                                                <Select
+                                                    labelId="ingredients-label"
+                                                    id="ingredients"
+                                                    name="ingredients"
+                                                    value={formik.values.ingredients}
+                                                    label="ingredients"
+                                                    onChange={formik.handleChange}
+                                                    multiple
+                                                >
+                                                    {ingredients.map((ingredient) => <MenuItem value={ingredient.strIngredient1}>
+                                                        {ingredient.strIngredient1}
+                                                    </MenuItem>)}
+                                                </Select>
+                                            </FormControl>
+                                        </Grid>
+                                        <Grid item key={762264} xs={12} sm={6} md={4} lg={3} xl={2}>
+                                            <FormControl fullWidth>
+                                                <ColorButton onClick={formik.handleReset}>
+                                                    <Trans i18nKey="reset" />
+                                                </ColorButton>
+                                            </FormControl>
+                                        </Grid>
+                                        <Grid item key={768764} xs={12} sm={6} md={4} lg={3} xl={2}>
+                                            <FormControl fullWidth>
+                                                <ColorButton onClick={() => formik.handleSubmit()}>
+                                                    <Trans i18nKey="filter" />
+                                                </ColorButton>
+                                            </FormControl>
+                                        </Grid>
                                     </Grid>
-                                    <Grid item key={21456} xs={12} sm={6} md={4} lg={3} xl={2}>
-                                        <FormControl fullWidth>
-                                            <InputLabel id="type-label"><Trans i18nKey="type" /></InputLabel>
-                                            <Select
-                                                labelId="type-label"
-                                                id="type"
-                                                name="type"
-                                                value={formik.values.type}
-                                                label="type"
-                                                onChange={formik.handleChange}
-                                            >
-                                                {types.map((type) => <MenuItem value={type.strAlcoholic}>
-                                                    {type.strAlcoholic}
-                                                </MenuItem>)}
-                                            </Select>
-                                        </FormControl>
-                                    </Grid>
-                                    <Grid item key={23423} xs={12} sm={6} md={4} lg={3} xl={2}>
-                                        <FormControl fullWidth>
-                                            <InputLabel id="glass-label"><Trans i18nKey="glass" /></InputLabel>
-                                            <Select
-                                                labelId="glass-label"
-                                                id="glass"
-                                                name="glass"
-                                                value={formik.values.glass}
-                                                label="glass"
-                                                onChange={formik.handleChange}
-                                            >
-                                                {glasses.map((glass) => <MenuItem value={glass.strGlass}>
-                                                    {glass.strGlass}
-                                                </MenuItem>)}
-                                            </Select>
-                                        </FormControl>
-                                    </Grid>
-                                    <Grid item key={768768} xs={12} sm={6} md={4} lg={3} xl={2}>
-                                        <FormControl fullWidth>
-                                            <InputLabel id="ingredients-label"><Trans i18nKey="ingredients" /></InputLabel>
-                                            <Select
-                                                labelId="ingredients-label"
-                                                id="ingredients"
-                                                name="ingredients"
-                                                value={formik.values.ingredients}
-                                                label="ingredients"
-                                                onChange={formik.handleChange}
-                                                multiple
-                                            >
-                                                {ingredients.map((ingredient) => <MenuItem value={ingredient.strIngredient1}>
-                                                    {ingredient.strIngredient1}
-                                                </MenuItem>)}
-                                            </Select>
-                                        </FormControl>
-                                    </Grid>
-                                    <Grid item key={762264} xs={12} sm={6} md={4} lg={3} xl={2}>
-                                        <FormControl fullWidth>
-                                            <ColorButton onClick={formik.handleReset}>
-                                                <Trans i18nKey="reset" />
-                                            </ColorButton>
-                                        </FormControl>
-                                    </Grid>
-                                    <Grid item key={768764} xs={12} sm={6} md={4} lg={3} xl={2}>
-                                        <FormControl fullWidth>
-                                            <ColorButton onClick={() => formik.handleSubmit()}>
-                                                <Trans i18nKey="filter" />
-                                            </ColorButton>
-                                        </FormControl>
-                                    </Grid>
-                                </Grid>
-                            </CardContent>
-                        </Card>
-                    </form>
+                                </CardContent>
+                            </Card>
+                        </form>
+                    </Fade>
                     <br />
                     {drinks.length > 0 ?
                         <Grid container spacing={3}>
                             {drinks.map((drink) => (
                                 <Grid item key={drink.idDrink} xs={12} sm={6} md={4} lg={3} xl={2}>
-                                    <Card
-                                        sx={{ height: '100%', display: 'flex', flexDirection: 'column' }}
-                                    >
-                                        <CardMedia
-                                            component="img"
-                                            sx={{
-                                                // 16:9
-                                                pt: '0%',
-                                            }}
-                                            image={drink.strDrinkThumb}
-                                            alt={drink.strDrink}
-                                        />
-                                        <CardContent sx={{ flexGrow: 1 }}>
-                                            <Typography gutterBottom variant="h5" component="h2" >
-                                                {drink.strDrink}
-                                            </Typography>
-                                            <Typography>
-                                                {drink.strInstructions}
-                                            </Typography>
-                                        </CardContent>
-                                        <CardActions>
-                                            <Div>
-                                                {drink.strIngredient1 ? <Typography fontSize={9} color="#220303" bgcolor="rgb(122 0 255 / 30%)" padding={0.5} variant="button" marginBottom="5%" marginRight="3%">
-                                                    {drink.strIngredient1}
-                                                </Typography> : <></>}
-                                                {drink.strIngredient2 ? <Typography fontSize={9} color="#220303" bgcolor="rgb(122 0 255 / 30%)" padding={0.5} variant="button" marginBottom="5%" marginRight="3%">
-                                                    {drink.strIngredient2}
-                                                </Typography> : <></>}{drink.strIngredient3 ? <Typography fontSize={9} color="#220303" bgcolor="rgb(122 0 255 / 30%)" padding={0.5} variant="button" marginBottom="5%" marginRight="3%">
-                                                    {drink.strIngredient3}
-                                                </Typography> : <></>}{drink.strIngredient4 ? <Typography fontSize={9} color="#220303" bgcolor="rgb(122 0 255 / 30%)" padding={0.5} variant="button" marginBottom="5%" marginRight="3%">
-                                                    {drink.strIngredient4}
-                                                </Typography> : <></>}{drink.strIngredient5 ? <Typography fontSize={9} color="#220303" bgcolor="rgb(122 0 255 / 30%)" padding={0.5} variant="button" marginBottom="5%" marginRight="3%">
-                                                    {drink.strIngredient5}
-                                                </Typography> : <></>}{drink.strIngredient6 ? <Typography fontSize={9} color="#220303" bgcolor="rgb(122 0 255 / 30%)" padding={0.5} variant="button" marginBottom="5%" marginRight="3%">
-                                                    {drink.strIngredient6}
-                                                </Typography> : <></>}{drink.strIngredien7 ? <Typography fontSize={9} color="#220303" bgcolor="rgb(122 0 255 / 30%)" padding={0.5} variant="button" marginBottom="5%" marginRight="3%">
-                                                    {drink.strIngredient7}
-                                                </Typography> : <></>}{drink.strIngredient8 ? <Typography fontSize={9} color="#220303" bgcolor="rgb(122 0 255 / 30%)" padding={0.5} variant="button" marginBottom="5%" marginRight="3%">
-                                                    {drink.strIngredient8}
-                                                </Typography> : <></>}
-                                            </Div>
-                                        </CardActions>
-                                    </Card>
+                                    <Fade in={true} >
+                                        <Card
+                                            sx={{ height: '100%', display: 'flex', flexDirection: 'column' }}
+                                        >
+                                            <CardMedia
+                                                component="img"
+                                                sx={{
+                                                    // 16:9
+                                                    pt: '0%',
+                                                }}
+                                                image={drink.strDrinkThumb}
+                                                alt={drink.strDrink}
+                                            />
+                                            <CardContent sx={{ flexGrow: 1 }}>
+                                                <Typography gutterBottom variant="h5" component="h2" >
+                                                    {drink.strDrink}
+                                                </Typography>
+                                                <Typography>
+                                                    {drink.strInstructions}
+                                                </Typography>
+                                            </CardContent>
+                                            <CardActions>
+                                                <Div>
+                                                    {drink.strIngredient1 ? <Typography fontSize={9} color="#220303" bgcolor="rgb(122 0 255 / 30%)" padding={0.5} variant="button" marginBottom="5%" marginRight="3%">
+                                                        {drink.strIngredient1}
+                                                    </Typography> : <></>}
+                                                    {drink.strIngredient2 ? <Typography fontSize={9} color="#220303" bgcolor="rgb(122 0 255 / 30%)" padding={0.5} variant="button" marginBottom="5%" marginRight="3%">
+                                                        {drink.strIngredient2}
+                                                    </Typography> : <></>}{drink.strIngredient3 ? <Typography fontSize={9} color="#220303" bgcolor="rgb(122 0 255 / 30%)" padding={0.5} variant="button" marginBottom="5%" marginRight="3%">
+                                                        {drink.strIngredient3}
+                                                    </Typography> : <></>}{drink.strIngredient4 ? <Typography fontSize={9} color="#220303" bgcolor="rgb(122 0 255 / 30%)" padding={0.5} variant="button" marginBottom="5%" marginRight="3%">
+                                                        {drink.strIngredient4}
+                                                    </Typography> : <></>}{drink.strIngredient5 ? <Typography fontSize={9} color="#220303" bgcolor="rgb(122 0 255 / 30%)" padding={0.5} variant="button" marginBottom="5%" marginRight="3%">
+                                                        {drink.strIngredient5}
+                                                    </Typography> : <></>}{drink.strIngredient6 ? <Typography fontSize={9} color="#220303" bgcolor="rgb(122 0 255 / 30%)" padding={0.5} variant="button" marginBottom="5%" marginRight="3%">
+                                                        {drink.strIngredient6}
+                                                    </Typography> : <></>}{drink.strIngredien7 ? <Typography fontSize={9} color="#220303" bgcolor="rgb(122 0 255 / 30%)" padding={0.5} variant="button" marginBottom="5%" marginRight="3%">
+                                                        {drink.strIngredient7}
+                                                    </Typography> : <></>}{drink.strIngredient8 ? <Typography fontSize={9} color="#220303" bgcolor="rgb(122 0 255 / 30%)" padding={0.5} variant="button" marginBottom="5%" marginRight="3%">
+                                                        {drink.strIngredient8}
+                                                    </Typography> : <></>}
+                                                </Div>
+                                            </CardActions>
+                                        </Card>
+                                    </Fade>
                                 </Grid>
                             ))}
                         </Grid> : <Loader />}

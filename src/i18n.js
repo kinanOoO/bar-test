@@ -42,7 +42,9 @@ i18n
                     name_of_bar: "Name of cocktail bar",
                     name_of_owner: "Name of owner",
                     last_name_of_owner: "Last Name of owner",
-                    generated: "Generated cocktails"
+                    generated: "Generated cocktails",
+                    enjoy: "enjoy!",
+                    thatsAll: "thats All!! yum yum"
                 }
             },
             tr: {
@@ -70,7 +72,9 @@ i18n
                     name_of_bar: "Kokteyl barının adı",
                     name_of_owner: "Sahibinin adı",
                     last_name_of_owner: "Sahibin Soyadı",
-                    generated: "Oluşturulan kokteyller"
+                    generated: "Oluşturulan kokteyller",
+                    enjoy: "Eğlence!",
+                    thatsAll: "bu kadar!! Ham ham"
                 }
             }
         }
