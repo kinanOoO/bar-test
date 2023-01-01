@@ -6,7 +6,8 @@ export const _getCocktails = async () => {
     const res = await axios.get(`${process.env.REACT_APP_BASE_URL}/search.php?s`)
     store.dispatch({
         type: "storeCocktails",
-        payload: res.data?.drinks
+        payload: res.data?.drinks,
+        isFiltered: false
     })
 }
 //************************************//
@@ -56,17 +57,31 @@ export const _getGenerated = (data) => {
 export const checkIngredients = (ingredients, cocktail) => {
     let result = true;
     let i = 1;
-    for (i = 1; i < 16; i++) {
-        if (cocktail[`Ingredient${i}`] !== null) {
-            if (cocktail[`Ingredient${i}`] in ingredients) {
-                result = true;
-            }
-            else {
-                result = false;
-                break;
-            }
-        } else {
+    while (cocktail[`strIngredient${i}`] !== null && i < 16) {
+        if (ingredients.find(ingredient => ingredient === cocktail[`strIngredient${i}`])) {
+            result = true;
+            i++
+        }
+        else {
+            result = false;
+            i++
+        }
+    }
+    return result
+}
+//************************************//
+export const checkFilterIngredients = (ingredients, cocktail) => {
+    let result = true;
+    let i = 1;
+    while (cocktail[`strIngredient${i}`] !== null && i < 16) {
+        if (ingredients.find(ingredient => ingredient === cocktail[`strIngredient${i}`])) {
+            result = true;
+            i++
             break;
+        }
+        else {
+            result = false;
+            i++
         }
     }
     return result
@@ -78,11 +93,12 @@ export const _getFeltered = (data) => {
         return (data.category === cocktail.strCategory || data.category === "") &&
             (data.glass === cocktail.strGlass || data.glass === "") &&
             (data.type === cocktail.strAlcoholic || data.type === "") &&
-            (checkIngredients(data.ingredients, cocktail) || data.ingredients.length < 1)
+            (checkFilterIngredients(data.ingredients, cocktail) || data.ingredients.length < 1)
     })
     store.dispatch({
-        type: "storeCocktails",
-        payload: result
+        type: "storeFilteredCocktails",
+        payload: result,
+        isFiltered: true
     })
 }
 //************************************//

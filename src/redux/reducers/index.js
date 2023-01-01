@@ -1,10 +1,12 @@
 // **  Initial State
 const initialState = {
   cocktails: [],
+  filteredCocktails: [],
   categories: [],
   types: [],
   glasses: [],
-  ingredients: []
+  ingredients: [],
+  isFiltered: false
 }
 
 export const CocktailReducer = (state = initialState, action) => {
@@ -12,7 +14,14 @@ export const CocktailReducer = (state = initialState, action) => {
     case "storeCocktails":
       return ({
         ...state,
-        cocktails: action.payload
+        cocktails: action.payload,
+        isFiltered: action.isFiltered
+      })
+    case "storeFilteredCocktails":
+      return ({
+        ...state,
+        filteredCocktails: action.payload,
+        isFiltered: action.isFiltered
       })
     case "storeGlasses":
       return ({

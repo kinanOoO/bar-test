@@ -29,6 +29,7 @@ import InputLabel from '@mui/material/InputLabel';
 import FormControl from '@mui/material/FormControl';
 import Footer from './footer';
 import { useTranslation, Trans } from 'react-i18next';
+import ButtonGroup from '@mui/material/ButtonGroup';
 
 const theme = createTheme({
     display: 'flex'
@@ -38,6 +39,7 @@ const Div = styled('div')(({ theme }) => ({
     flexWrap: 'wrap'
 }));
 const style = {
+    backgroundColor: "#ffe5fbfc",
     position: 'absolute',
     top: '50%',
     left: '50%',
@@ -68,13 +70,13 @@ export default function Main() {
     const { i18n } = useTranslation();
     const [isApply, setIsApply] = React.useState(false);
     const drinks = useSelector(state => state.CocktailReducer.cocktails);
-    if (drinks.length < 1) {
-        _getCocktails();
-    }
+    const isFiltered = useSelector(state => state.CocktailReducer.isFiltered);
+    const filteredCocktails = useSelector(state => state.CocktailReducer.filteredCocktails);
     let categories = useSelector(state => state.CocktailReducer.categories);
     let types = useSelector(state => state.CocktailReducer.types);
     let glasses = useSelector(state => state.CocktailReducer.glasses);
     let ingredients = useSelector(state => state.CocktailReducer.ingredients);
+    let [view, setView] = React.useState(drinks);
     React.useEffect(() => {
         if (categories.length < 1) {
             _getCategories()
@@ -88,7 +90,17 @@ export default function Main() {
         if (ingredients.length < 1) {
             _getIngredients()
         }
+        if (drinks.length < 1 && !isFiltered) {
+            _getCocktails();
+        }
     })
+    React.useEffect(() => {
+        if (isFiltered) {
+            setView(filteredCocktails);
+        } else {
+            setView(drinks);
+        }
+    }, [isFiltered, drinks, filteredCocktails])
     const ValidationSchema = Yup.object();
     const formik = useFormik({
         initialValues: {
@@ -122,11 +134,17 @@ export default function Main() {
                         >
                             <Trans i18nKey="title" />
                         </Typography>
-                        {Object.keys(lngs).map((lng) => (
-                            <button key={lng} style={{ fontWeight: i18n.resolvedLanguage === lng ? 'bold' : 'normal' }} type="submit" onClick={() => i18n.changeLanguage(lng)}>
-                                {lngs[lng].nativeName}
-                            </button>
-                        ))}
+                        <ButtonGroup
+                            color="secondary"
+                            //disableElevation
+                            variant="contained"
+                            aria-label="Disabled elevation buttons">
+                            {Object.keys(lngs).map((lng) => (
+                                <Button key={lng} disabled={i18n.resolvedLanguage === lng} type="submit" onClick={() => i18n.changeLanguage(lng)}>
+                                    {lngs[lng].nativeName}
+                                </Button>
+                            ))}
+                        </ButtonGroup>
                         <ColorButton sx={{ marginLeft: '1%' }} variant="contained" onClick={() => { setIsApply(true) }}><Trans i18nKey="apply" /></ColorButton>
                     </Toolbar>
                 </AppBar>
@@ -141,7 +159,7 @@ export default function Main() {
                     sx={style2}
                 >
                     <Fade in={isApply}>
-                        <Box sx={style} >
+                        <Box sx={style}>
                             <Application close={() => { setIsApply(false) }} />
                         </Box>
                     </Fade>
@@ -151,7 +169,7 @@ export default function Main() {
                     <Fade in={true}>
                         <form>
                             <Card>
-                                <CardContent sx={{ flexGrow: 1 }}>
+                                <CardContent sx={{ flexGrow: 1, backgroundColor: 'aliceblue' }}>
                                     <Grid container spacing={1.2} sx={{ height: '100%', display: 'flex', flexDirection: 'row', justifyContent: "space-between", flexWrap: "wrap" }}>
                                         <Grid item key={86789} xs={12} sm={6} md={4} lg={3} xl={2}>
                                             <FormControl fullWidth>
@@ -242,9 +260,9 @@ export default function Main() {
                         </form>
                     </Fade>
                     <br />
-                    {drinks.length > 0 ?
+                    {view.length > 0 ?
                         <Grid container spacing={3}>
-                            {drinks.map((drink) => (
+                            {view.map((drink) => (
                                 <Grid item key={drink.idDrink} xs={12} sm={6} md={4} lg={3} xl={2}>
                                     <Fade in={true} >
                                         <Card
@@ -293,7 +311,8 @@ export default function Main() {
                                     </Fade>
                                 </Grid>
                             ))}
-                        </Grid> : <Loader />}
+                        </Grid> : (isFiltered ? <Div><Typography width="100%" color="AppWorkspace" alignContent='center'>sorry! no matched results found</Typography></Div> : <Loader />)
+                    }
                 </Container>
             </main>
             <Footer />
